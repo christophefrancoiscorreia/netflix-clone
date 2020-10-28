@@ -1,17 +1,18 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './Header.css'
 function Header({black}) {
     return (
         <header className={black ? 'black' : ''}>
             <div className="header--logo">
-                <a href="/">
+                <Link to="/">
                     <img src="/logo.png" alt="Netflix clone" />
-                </a>
+                </Link>
             </div>
             <div className="header--user">
-                <a href="">
+                <Link to="/user">
                     <img src="/hBEe3tdn_400x400.png" alt="Netflix clone" />
-                </a>
+                </Link>
             </div>
         </header>
     )

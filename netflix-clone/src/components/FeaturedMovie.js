@@ -1,10 +1,11 @@
 import React from 'react'
 import './FeaturedMovie.css'
 import {BsFillPlayFill, BsPlus} from 'react-icons/bs'
-function FeaturedMovie({item}) {
+function FeaturedMovie({item, type}) {
 
-
-    let firstDate = new Date(item.first_air_date);
+    console.log(item)
+    let date = (type === 'tv') ? item.first_air_date : item.release_date;
+    let firstDate = new Date(date);
     let genres = [];
 
     for(let i in item.genres){
@@ -27,14 +28,15 @@ function FeaturedMovie({item}) {
                     <div className="featured--name">{item.original_name}</div>
                     <div className="featured--info">
                         <div className="featured--points">{item.vote_average} classification</div>
-                        <div className="featured--year">{firstDate.getFullYear()}</div>
-                        <div className="featured--seasons">{item.number_of_seasons} saison{item.number_of_seasons !== 1 ? 's' : ''}</div>
+                        { date && <div className="featured--year">{firstDate.getFullYear()}</div>}
+                        {(type === 'tv') && <div className="featured--seasons">{item.number_of_seasons} saison{item.number_of_seasons !== 1 ? 's' : ''}</div> }
                     </div>
                     <div className="featured--description">
                         {description}
                     </div>
                     <div className="featured--buttons">
-                        <a href={`/watch/${item.id}`} className="featured--watchbutton"><BsFillPlayFill /> <span>Assister</span></a>
+                        <a href={item.homepage} className="featured--watchbutton"><BsFillPlayFill /> <span>Assister</span></a>
+                        
                         <a href={`/list/add/${item.id}`} className="featured--addlistbutton"><BsPlus /> <span>Ma Liste</span></a>
                     </div>
                     <div className="featured--genres">

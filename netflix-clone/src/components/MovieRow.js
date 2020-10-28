@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './MovieRow.css'
 import {MdChevronLeft, MdChevronRight} from 'react-icons/md'
+import { Link } from 'react-router-dom';
 
 
-function MovieRow({title, items}) {
+function MovieRow({title, items, type}) {
     const [scrollX, setScrollX] = useState(0);
 
     const handleLeftArrow = () => {
@@ -28,6 +29,10 @@ function MovieRow({title, items}) {
         setScrollX(x);
     }
 
+    const checkType = (type) => {
+        
+        return (type === 'originals') ? 'tv' : 'movie'
+    }
 
     return (
         <div className="movieRow">
@@ -44,8 +49,11 @@ function MovieRow({title, items}) {
                     width: items.results.length * 150
                 }}>
                     {items.results.length > 0 && items.results.map((item, key) => (
+
                         <div className="movieRow--item" key={key}>
-                            <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} />
+                            <Link to={`/stream/${item.id}/${checkType(type)}`} type="" >
+                                <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} />
+                            </Link>
                         </div>
                     ))}
                 </div>
